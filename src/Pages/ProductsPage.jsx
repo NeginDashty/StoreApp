@@ -5,8 +5,10 @@ import Card from '../Components/Card';
 import Loader from '../Components/Loader';
 import { ImSearch } from "react-icons/im";
 import { FaListUl } from "react-icons/fa";
-import { CreateQueryObject, FilterProducts, SearchProducts } from '../helper/Helper';
+import { CreateQueryObject, FilterProducts, getInitialQuery, SearchProducts } from '../helper/Helper';
 import { useSearchParams } from 'react-router-dom';
+import Search from '../Components/Search';
+import SideBar from '../Components/SideBar';
 
 
 const Container=styled.div`
@@ -32,10 +34,14 @@ function ProductsPage() {
 
   useEffect(()=>{
     setDisplayed(products);
+    setQuery(getInitialQuery(searchParams));
   },[products]);
 
+
   useEffect(()=>{
-    setSearchParams(query);
+    //1
+    setSearchParams(query); 
+    setSearch(query.search || "");
    let finalProducts=SearchProducts(products,query.search);
    finalProducts=FilterProducts(finalProducts,query.category)
    setDisplayed(finalProducts);
@@ -43,31 +49,11 @@ function ProductsPage() {
    
   },[query]);
 
-  const searchHandler=()=>{
-    //یعنی مقدار داخل اینپوت سرچ میره تو آبجکت کوئری
-    setQuery((query)=>CreateQueryObject(query,{search}));
-    //الان سرچ رفت داخل کوئری
-    console.log(query);
-  }
 
-  const categoryHandler=(event)=>{ 
-    const {tagName}=event.target;
-    
-    const category=event.target.innerText.toLowerCase();
-    
-    if(tagName!== 'LI') return;
-    setQuery((query)=>CreateQueryObject(query,{category}))
-    console.log(query);
-    console.log(category);
-  }
   return (
    <>
-    <div>
-        <input type="text" placeholder='Search...' value={search} onChange={e=>setSearch(e.target.value.toLowerCase().trim())}/>
-        <button onClick={searchHandler}>
-          <ImSearch/>
-        </button>
-    </div>
+   <Search search={search} setSearch={setSearch} setQuery={setQuery}/>
+
     
    <Container>
     <Products>
@@ -76,19 +62,7 @@ function ProductsPage() {
         return <Card key={product.id} data={product}/>
       })}
     </Products>
-      <div>
-        <div>
-          <FaListUl/>
-          <p>Categories</p>
-        </div>
-        <ul onClick={categoryHandler}>
-          <li>All</li>
-          <li>Electronics</li>
-          <li>Jewelery</li>
-          <li>Men's clothing</li>
-          <li>Women's clothing</li>
-        </ul>
-      </div>
+      <SideBar setQuery={setQuery}/>
    </Container>
    </>
   )
