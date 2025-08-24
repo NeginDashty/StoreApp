@@ -38,6 +38,7 @@ function ProductsPage() {
   },[products]);
 
 
+
   useEffect(()=>{
     //1
     setSearchParams(query); 
@@ -46,7 +47,7 @@ function ProductsPage() {
    finalProducts=FilterProducts(finalProducts,query.category)
    setDisplayed(finalProducts);
    console.log(finalProducts);
-   
+  
   },[query]);
 
 
@@ -62,7 +63,7 @@ function ProductsPage() {
         return <Card key={product.id} data={product}/>
       })}
     </Products>
-      <SideBar setQuery={setQuery}/>
+      <SideBar  query={query} setQuery={setQuery}/>
    </Container>
    </>
   )
