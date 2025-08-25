@@ -5,7 +5,7 @@ import { TbListDetails } from "react-icons/tb";
 import { TbShoppingBagCheck } from "react-icons/tb";
 import { ShortenText} from '../helper/Helper';
 import styled from 'styled-components'
-
+import { useCart } from '../Context/CartContext';
 
 const Cards=styled.div`
     width: 270px;
@@ -64,8 +64,16 @@ const Actions=styled.div`
 `
 
 
+
 function Card({data}) {
-    const{id,title,image,price}=data;
+     const{id,title,image,price,}=data;
+     const {state,dispatch}=useCart();
+     console.log(state)
+     const clickHandler=()=>{
+        dispatch({type:'add_item',payload:data})
+     }
+
+
   return (
     <>
 
@@ -79,7 +87,7 @@ function Card({data}) {
             </Link>
 
             <div>
-                <button>
+                <button onClick={clickHandler}>
                 <TbShoppingBagCheck/>
             </button>
             </div>

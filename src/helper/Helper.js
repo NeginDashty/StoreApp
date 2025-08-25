@@ -43,5 +43,15 @@ const query={};
 
 };
 
+const SumProducts = (products) => {
+  const itemsCounter = products.reduce((acc, cur) => acc + cur.quantity, 0);
 
-export{ShortenText,SearchProducts,FilterProducts,CreateQueryObject,getInitialQuery};
+  const totalPrice = products
+    .reduce((acc, cur) => acc + cur.quantity * cur.price, 0)
+    .toFixed(2);
+
+  return { itemsCounter, totalPrice };
+};
+
+
+export{ShortenText,SearchProducts,FilterProducts,CreateQueryObject,getInitialQuery,SumProducts};

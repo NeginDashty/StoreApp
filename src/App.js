@@ -4,6 +4,7 @@ import PageNotFound from "./Pages/404";
 import DetailPage from "./Pages/DetailPage";
 import CheckOutPage from "./Pages/CheckOutPage";
 import { ProductsProvider } from "./Context/ProductContext";
+import { CartProvider } from "./Context/CartContext";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
     <Link to="/products">برو به محصولات</Link>
     <Link to="/checkout">checkout</Link>
   </nav>
-
+<CartProvider>
   <ProductsProvider>
   <Routes>
     <Route path="/" element={<Navigate to="/products" replace />} />
@@ -22,8 +23,10 @@ function App() {
     <Route path="*" element={<PageNotFound/>}/>
   </Routes>
   </ProductsProvider>
+  </CartProvider>
   </>
   );
 }
+
 
 export default App;
