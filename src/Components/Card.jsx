@@ -75,6 +75,17 @@ function Card({data}) {
         dispatch({type:type,payload:data});
         console.log(state);
      };
+
+    const productQuantity=(state,id)=>{
+        const index=state.selectedItems.findIndex(item=>item.id===id);
+        if(index===-1){
+            return 0;
+        }else{
+            return state.selectedItems[index].quantity;
+        };
+    }
+    const quantity=productQuantity(state,id);
+    console.log(quantity);
      
 
   return (
@@ -90,19 +101,29 @@ function Card({data}) {
             </Link>
 
             <div>
-                <button onClick={()=>clickHandler('add_item')}>
+            {quantity ===0 ?
+            <button onClick={()=>clickHandler('add_item')}>
                 <TbShoppingBagCheck/>
+            </button>:
+            <button onClick={()=>clickHandler('increase')}>
+                +
             </button>
-            <button onClick={()=>clickHandler('remove_item')}>
+            }
+            {!!quantity &&(
+                <span>{quantity}</span>
+            )}
+            {quantity ==1 && (
+                <button onClick={()=>clickHandler('remove_item')}>
                 <MdDeleteOutline />
             </button>
-            <button onClick={()=>clickHandler('increase')}>
-                 +
-            </button>
-            <button onClick={()=>clickHandler('decrease')}>
+            )}
+            {quantity>1 &&(
+                 <button onClick={()=>clickHandler('decrease')}>
                 -
             </button>
+            )}
             </div>
+        
         </Actions>
     </Cards>
     </>
