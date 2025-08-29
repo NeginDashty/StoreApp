@@ -6,6 +6,9 @@ import { TbShoppingBagCheck } from "react-icons/tb";
 import { ShortenText} from '../helper/Helper';
 import styled from 'styled-components'
 import { useCart } from '../Context/CartContext';
+import { MdDeleteOutline } from "react-icons/md";
+
+
 
 const Cards=styled.div`
     width: 270px;
@@ -68,11 +71,11 @@ const Actions=styled.div`
 function Card({data}) {
      const{id,title,image,price,}=data;
      const {state,dispatch}=useCart();
-     console.log(state)
-     const clickHandler=()=>{
-        dispatch({type:'add_item',payload:data})
-     }
-
+     const clickHandler=(type)=>{
+        dispatch({type:type,payload:data});
+        console.log(state);
+     };
+     
 
   return (
     <>
@@ -87,8 +90,17 @@ function Card({data}) {
             </Link>
 
             <div>
-                <button onClick={clickHandler}>
+                <button onClick={()=>clickHandler('add_item')}>
                 <TbShoppingBagCheck/>
+            </button>
+            <button onClick={()=>clickHandler('remove_item')}>
+                <MdDeleteOutline />
+            </button>
+            <button onClick={()=>clickHandler('increase')}>
+                 +
+            </button>
+            <button onClick={()=>clickHandler('decrease')}>
+                -
             </button>
             </div>
         </Actions>

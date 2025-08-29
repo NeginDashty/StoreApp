@@ -44,13 +44,13 @@ const query={};
 };
 
 const SumProducts = (products) => {
-  const itemsCounter = products.reduce((acc, cur) => acc + cur.quantity, 0);
+  const itemCounter = products.reduce((acc, cur) => acc + cur.quantity, 0);
 
   const totalPrice = products
     .reduce((acc, cur) => acc + cur.quantity * cur.price, 0)
     .toFixed(2);
 
-  return { itemsCounter, totalPrice };
+  return { itemCounter, totalPrice };
 };
 
 

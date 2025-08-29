@@ -38,7 +38,53 @@ function reducer(state, action) {
           checkOut: false
         };
       }
+    case 'remove_item':
+      const newItems= state.selectedItems.filter((i) => i.id !== action.payload.id);
+      return {
+        ...state,
+        selectedItems: newItems,
+        ...SumProducts(newItems),
+      };
+    case 'increase':
+      const increasedItems=state.selectedItems.findIndex(item=>item.id===action.payload.id);
+      const updatedItems=[...state.selectedItems];
+      // state.selectedItems[increasedItems].quantity++;
+      if(increasedItems>=0){
+       updatedItems[increasedItems]={
+        ...updatedItems[increasedItems],
+        quantity:updatedItems[increasedItems].quantity+1
+       }
+       return{
+        ...state,
+        selectedItems:updatedItems,
+        ...SumProducts(updatedItems)
 
+       }
+      }
+    case 'decrease':  
+     const decreasedItems=state.selectedItems.findIndex((item)=>item.id===action.payload.id);
+     const updatedDecreasedItems=[...state.selectedItems];
+
+     if(decreasedItems>=0){
+      updatedDecreasedItems[decreasedItems]={
+        ...updatedDecreasedItems[decreasedItems],
+        quantity:updatedDecreasedItems[decreasedItems].quantity-1
+
+      }
+      return{
+        ...state,
+        selectedItems:updatedDecreasedItems,
+        ...SumProducts(updatedDecreasedItems)
+      }
+     }
+     //تسویه
+    case 'checkout':
+            return{
+              selectedItems:[],
+              itemCounter:0,
+              totalPrice:0,
+              checkOut:true
+            }
     default:
       throw new Error('Invalid Action!');
   }

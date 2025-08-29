@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useCart } from '../Context/CartContext'
+
+
 
 function CheckOutPage() {
+
   return (
-    <div>CheckOutPage</div>
+    <div></div>
   )
 }
 
