@@ -19,9 +19,6 @@ return filterProducts;
 
 const CreateQueryObject=(currentQuery,newQuery)=>{
    if (newQuery.category==='all') {
-    //newQuery اونی که انتخاب شده هست
-    //اگه کاربر All رو انتخاب کرد
-    //یعنی اگه تو کتگوری هندلر ما آل انتخاب شده بود بیا از آبجکت اول کتگوری رو جدا کن باقی مقادیر هم جدا کن ==رست
     const {category, ...rest}=currentQuery;
     return rest;
    };
