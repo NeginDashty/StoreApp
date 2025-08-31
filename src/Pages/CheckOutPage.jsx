@@ -4,9 +4,11 @@ import { useCart } from '../Context/CartContext'
 
 
 function CheckOutPage() {
-
+const {state}=useCart();
   return (
-    <div></div>
+    <div>
+      {state.itemCounter}
+    </div>
   )
 }
 
