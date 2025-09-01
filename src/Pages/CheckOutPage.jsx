@@ -1,14 +1,33 @@
 import React, { useEffect } from 'react'
 import { useCart } from '../Context/CartContext'
+import { useProducts } from '../Context/ProductContext';
+import BasketCard from '../Components/BasketCard';
+import { Link } from 'react-router-dom'
 
 
 
 function CheckOutPage() {
-const {state}=useCart();
+const {state,dispatch}=useCart();
+const {products}=useProducts();
+
   return (
+    <>
     <div>
-      {state.itemCounter}
+      <div>
+        {state.selectedItems.map((product)=>(
+          <BasketCard
+          key={product.id}
+          data={product}
+          itemcounter={product.itemCounter}/>
+        ))}
+      </div>
+      <div>
+        <Link to='/products'>
+        <button>Back</button>
+        </Link>
+      </div>
     </div>
+    </>
   )
 }
 
