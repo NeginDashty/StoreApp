@@ -10,6 +10,18 @@ function CheckOutPage() {
 const {state,dispatch}=useCart();
 const {products}=useProducts();
 
+
+  if(!state.itemCounter){
+    return(
+      <>
+      <div>
+        <p>Empty!</p>
+      </div>
+      </>
+    )
+  }
+
+
   return (
     <>
     <div>
