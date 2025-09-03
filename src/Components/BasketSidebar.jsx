@@ -20,7 +20,7 @@ padding: 20px;
     font-size: 1.3rem;
     margin-right: 5px;
 }& div span{
-color: grey;
+color: #8b8a8a;
 margin-left: 10px;
 }& button{
     width: 100%;
